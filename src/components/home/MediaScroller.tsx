@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { PlayCircle, PlusCircle } from "lucide-react"
 
 interface MediaItem {
   id: number
@@ -15,36 +16,42 @@ interface MediaScrollerProps {
 
 const getImageUrl = (path: string) => {
   return path
-    ? `https://image.tmdb.org/t/p/w200${path}`
+    ? `https://image.tmdb.org/t/p/w300${path}`
     : "/placeholder-image.png"
 }
 
 export default function MediaScroller({ title, items }: MediaScrollerProps) {
   return (
-    <section className="mb-10">
-      <h2 className="text-xl font-semibold text-gray-300 mb-4 border-l-4 border-blue-500 pl-3">
+    <section className="mb-14">
+      <h2 className="text-2xl font-extrabold text-violet-600 mb-6 tracking-wide uppercase px-4 md:px-0">
         {title}
       </h2>
-      <div className="flex overflow-x-auto gap-4 pb-4 -mb-4">
+      <div className="flex overflow-x-auto gap-5 pb-4 pl-4 md:pl-0 hide-scrollbar">
         {items.map((item) => (
           <Link
             href={`/media/${item.media_type || "movie"}/${item.id}`}
             key={item.id}
             className="group"
           >
-            <div className="w-40 shrink-0">
-              <div className="aspect-2/3 w-full overflow-hidden rounded-md bg-gray-800">
+            <div className="w-44 shrink-0">
+              <div className="relative aspect-2/3 w-full overflow-hidden rounded-xl shadow-2xl shadow-zinc-900 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-violet-600/50">
                 <Image
                   src={getImageUrl(item.poster_path)}
                   alt={item.title}
-                  width={200}
-                  height={300}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  width={300}
+                  height={450}
+                  className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-80"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col items-center justify-center p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <PlayCircle className="text-white w-12 h-12 opacity-90 group-hover:scale-110 transition-transform" />
+                  <span className="text-sm font-semibold text-white text-center mt-2 px-1">
+                    {item.title}
+                  </span>
+                </div>
+                <div className="absolute top-2 right-2 p-1 bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                  <PlusCircle className="text-white w-6 h-6" />
+                </div>
               </div>
-              <h3 className="text-sm mt-2 truncate text-gray-200 group-hover:text-white">
-                {item.title}
-              </h3>
             </div>
           </Link>
         ))}
