@@ -15,17 +15,20 @@ enum MediaStatus {
 }
 
 model MediaItem {
-  id        String      @id @default(cuid())
-  mediaId   String
-  mediaType String
-  title     String
-  posterUrl String?
-  status    MediaStatus @default(PLAN_TO_WATCH)
-  rating    Int?
-  userId    String
-  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id            String      @id @default(cuid())
+  mediaId       String
+  mediaType     String
+  title         String
+  posterUrl     String?
+  status        MediaStatus @default(PLAN_TO_WATCH)
+  rating        Int?
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  
+  isLiked       Boolean     @default(false)
+  isWatchlisted Boolean     @default(false)
 
   @@unique([userId, mediaId])
 }
