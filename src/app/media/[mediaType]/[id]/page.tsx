@@ -67,7 +67,7 @@ export default async function MediaDetailPage({ params }: PageParams) {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8 px-4 md:px-0 -mt-24 md:-mt-48 relative z-10">
-        <div className="w-48 md:w-72 flex-shrink-0">
+        <div className="w-48 md:w-72 shrink-0">
           <Image
             src={posterUrl}
             alt={title}
@@ -77,7 +77,7 @@ export default async function MediaDetailPage({ params }: PageParams) {
           />
         </div>
 
-        <div className="flex-grow">
+        <div className="grow">
           <h1 className="text-4xl md:text-5xl font-bold mb-2">{title}</h1>
           <p className="text-lg text-gray-300 mb-4">
             {new Date(releaseDate).getFullYear()}
